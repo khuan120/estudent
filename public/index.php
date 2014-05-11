@@ -20,21 +20,20 @@ try {
 		) );
 	} );
 	
+	// Registering Volt as template engine
+	$di->set ( 'view', function () {
 		
-		//Registering Volt as template engine
-		$di->set('view', function() {
+		$view = new \Phalcon\Mvc\View ();
 		
-			$view = new \Phalcon\Mvc\View();
+		$view->setViewsDir ( '../app/views/' );
 		
-			$view->setViewsDir('../app/views/');
+		$view->registerEngines ( array (
+				".volt" => 'Phalcon\Mvc\View\Engine\Volt' 
+		) );
 		
-			$view->registerEngines(array(
-					".volt" => 'Phalcon\Mvc\View\Engine\Volt'
-			));
-		
-			return $view;
-		});
-		
+		return $view;
+	} );
+	
 	// Setup a base URI so that all generated URIs include the "tutorial" folder
 	$di->set ( 'url', function () {
 		$url = new \Phalcon\Mvc\Url ();
